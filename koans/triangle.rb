@@ -17,9 +17,7 @@ def triangle(a, b, c)
   sides = [a, b, c]
   total = sides.uniq.length
 
-  puts "\n"
-  puts sides.uniq.length
-  puts sides
+  fail TriangleError unless _triangle_preprocess(sides)
 
   if total == 1
     :equilateral
@@ -28,6 +26,18 @@ def triangle(a, b, c)
   else
     :scalene
   end
+end
+
+# Check is valid triangle
+def _triangle_preprocess(sides)
+  # base check
+  return false if sides[0] <= 0 || sides[1] <= 0 || sides[2] <= 0
+  # simple triangle inequality theorem
+  return false if sides[0] + sides[1] <= sides[2]
+  return false if sides[1] + sides[2] <= sides[0]
+  return false if sides[2] + sides[0] <= sides[1]
+
+  true
 end
 
 # Error class used in part 2.  No need to change this code.
